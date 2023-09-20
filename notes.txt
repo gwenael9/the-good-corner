@@ -1,1 +1,2 @@
 CRUD en typescript
+SQLite --> + de l'expérimentation, dans un vrai projet on utilisera pas cela
