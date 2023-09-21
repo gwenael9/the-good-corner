@@ -1,2 +1,14 @@
+Outils utilisés :
+    - TS
+    - Express.js --> node.js
+    - SQLite
+    - TypeORM
+
 CRUD en typescript
 SQLite --> + de l'expérimentation, dans un vrai projet on utilisera pas cela
+
+Méthode Merise (à revoir)
+
+
+---- TypeORM
+npm install typeorm reflect-metadata
