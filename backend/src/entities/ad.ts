@@ -1,5 +1,7 @@
 import { Length, Min } from "class-validator";
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Category } from "./category";
+import { Tag } from "./tag";
 
 @Entity()
 export class Ad extends BaseEntity {
@@ -29,5 +31,12 @@ export class Ad extends BaseEntity {
 
     @CreateDateColumn()
     createdAt: string;
+
+    @ManyToOne(() => Category, category => category.ads, { cascade: true, onDelete: "CASCADE"})
+    category: Category;
+
+    @ManyToMany(() => Tag, tag => tag.ads, { cascade: true })
+    @JoinTable()
+    tags: Tag[];
 
 };

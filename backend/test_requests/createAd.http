@@ -2,11 +2,11 @@ POST http://localhost:3000/ads
 Content-Type: application/json
 
 {
-    "id": 2,
-    "title": "Vélo à vendre",
-    "descritption":"Vélo rouge comme neuf",
+    "id": 8,
+    "title": "test id",
+    "descritption":"desc",
     "author": "gwen",
-    "price": 100,
+    "price": 10,
     "picture": "https://images.lecho.be/view?iid=dc:113129565&context=ONLINE&ratio=16/9&width=640&u=1508242455000",
     "city": "Nantes",
     "createAt": ""

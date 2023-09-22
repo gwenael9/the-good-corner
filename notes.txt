@@ -12,3 +12,6 @@ Méthode Merise (à revoir)
 
 ---- TypeORM
 npm install typeorm reflect-metadata
+
+------ ouvrir la base de donnée
+ctrl + p , >opendatabase
