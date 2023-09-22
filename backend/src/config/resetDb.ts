@@ -5,6 +5,7 @@ import { Tag } from "../entities/tag";
 
 async function clearDB() {
   const runner = db.createQueryRunner();
+  // supprimer les tables sans avoir de restriction. OFF -> ON
   await runner.query("PRAGMA foreign_keys=OFF");
   await Promise.all(
     db.entityMetadatas.map((entity) =>

@@ -44,6 +44,7 @@ app.get("/ads", async (req: Request, res: Response) => {
       },
       where: {
         tags: {
+          // "localhost/ads?tagIds=1,2 => [1,2]"
           id: typeof tagIds === "string" && tagIds.length > 0 ? In(tagIds.split(",").map((t) => parseInt(t, 10))) : undefined
         }
       }
@@ -78,13 +79,7 @@ app.post("/ads", async (req: Request, res: Response) => {
   try {
     const newAd = Ad.create(req.body);
     const errors = await validate(newAd);
-    // if (errors) return res.status(422).send({ errors });
-
     if (errors.length !== 0) return res.status(422).send({ errors });
-    const { tagIds = [] } = req.body;
-    const tagsToAssociate = await Tag.find({ where: { id: In(tagIds) } });
-    newAd.tags = tagsToAssociate;
-
     const newAdWithId = await newAd.save();
     res.send(newAdWithId);
   } catch (err) {
@@ -152,15 +147,8 @@ app.patch('/ads/:id', async (req: Request, res: Response) => {
     const errors = await validate(adToUpdate);
     if(errors.length !== 0) return res.status(422).send({ errors });
 
-    const { tagIds } = req.body;
-    if (Array.isArray(tagIds)) {
-      const tagsToAssociate = await Tag.find({ where: { id: In(tagIds) } });
-      adToUpdate.tags = tagsToAssociate;
-    }
-
     res.send(await adToUpdate.save());
-  } 
-  catch (err) {
+  } catch (err) {
     console.log(err);
     res.sendStatus(500);
   }
