@@ -7,4 +7,9 @@ export type Ad = {
     picture: string;
     city: string;
     createdAt: string;
+};
+
+export type Category = {
+    id: number;
+    name: string;
 }

@@ -3,6 +3,7 @@ Outils utilisés :
     - Express.js --> node.js
     - SQLite
     - TypeORM
+    - React et Next.JS
 
 CRUD en typescript
 SQLite --> + de l'expérimentation, dans un vrai projet on utilisera pas cela
@@ -15,3 +16,5 @@ npm install typeorm reflect-metadata
 
 ------ ouvrir la base de donnée
 ctrl + p , >opendatabase
+
+pq pas intégré Material.UI ou Tailwind CSS 

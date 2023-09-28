@@ -1,4 +1,6 @@
 import Link from "next/link"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const categories = [
@@ -16,19 +18,34 @@ export default function Header() {
     {name: "Services"},    
     {name: "Vacances"}
   ]
+
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if(typeof router.query.title === 'string') {
+      setSearch(router.query.title)
+    }
+  }, [router.query.title])
+
     return (
       <>
-        <header className="header">
-          <div className="main-menu">
-            <h1>
-              <Link href="/" className="button logo link-button">
-                <span className="mobile-short-label">TGC</span>
-                <span className="desktop-long-label">THE GOOD CORNER</span>
+        <header className="fixed top-0 inset-x-0 border-b-2 p-2.5 bg-white">
+          <div className="flex justify-between items-center gap-2.5">
+            <h1 className="m-0">
+              <Link href="/" className="h-10 px-6 font-semibold rounded-md bg-black text-white deco-none border-none">
+                <span className="md:hidden">TGC</span>
+                <span className="hidden md:inline">THE GOOD CORNER</span>
               </Link>
             </h1>
-            <form className="text-field-with-button">
-              <input className="text-field main-search-field" type="search" />
-              <button className="button button-primary">
+
+            <form className="flex grow justify-center gap-1" onSubmit={(e) => {
+              e.preventDefault();
+              router.push(`/search?title=${search}`);
+            }}>
+
+              <input className="h-10 p-2 border-2 border-solid border-slate-950 rounded-lg text-xs w-full min-w-min max-w-xs grow" type="search" value={search} onChange={(e) => setSearch(e.target.value)}/>
+              <button className="button bg-gray-600 text-white">
                 <svg
                   aria-hidden="true"
                   width="16"
@@ -46,17 +63,18 @@ export default function Header() {
                 </svg>
               </button>
             </form>
-            <a href="/post-ad" className="button link-button">
-              <span className="mobile-short-label">Publier</span>
-              <span className="desktop-long-label">Publier une annonce</span>
+
+            <a href="/newAd" className="button deco-none">
+              <span className="md:hidden">Publier</span>
+              <span className="hidden md:inline">Publier une annonce</span>
               </a>
           </div>
-          <nav className="categories-navigation">
+          <nav className="flex text-xs font-bold py-4 pl-2.5 pr-1.5  justify-between">
             {categories.map((cat) => (
               <a href="" className="category-navigation-link" key={cat.name}>
                 {cat.name}
               </a>
-            ))};
+            ))}
           </nav>
         </header>
       </>

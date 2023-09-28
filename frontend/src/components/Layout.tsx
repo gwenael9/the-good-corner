@@ -17,7 +17,7 @@ export default function Layout({ children, title}: LayoutProps ) {
             <link rel="icon" href="favicon.ico" />
         </Head>
         <Header />
-        <main className="main-content">{children}</main>
+        <main className="py-0 px-4 mt-32">{children}</main>
     </>
     );
 }

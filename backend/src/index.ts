@@ -6,11 +6,13 @@ import db from "./config/db";
 import { Category } from "./entities/category";
 import { Tag } from "./entities/tag";
 import { In, Like } from "typeorm";
+import cors from 'cors';
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Helloooooooooo");
@@ -35,7 +37,9 @@ app.get("/categories", async (req: Request, res: Response) => {
 
 // annonces
 app.get("/ads", async (req: Request, res: Response) => {
+
   const { tagIds } = req.query;
+  const title = req.query.title as string | undefined
   try {
     const ads = await Ad.find({
       relations: {
@@ -46,7 +50,8 @@ app.get("/ads", async (req: Request, res: Response) => {
         tags: {
           // "localhost/ads?tagIds=1,2 => [1,2]"
           id: typeof tagIds === "string" && tagIds.length > 0 ? In(tagIds.split(",").map((t) => parseInt(t, 10))) : undefined
-        }
+        },
+        title: title ? Like(`%${title}%`) : undefined,
       }
     });
     res.send(ads);

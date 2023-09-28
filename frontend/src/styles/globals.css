@@ -1,3 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.deco-none {
+  text-decoration: none;
+}
+
+.border-none {
+  border: none;
+}
+
+.button {
+  min-width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
 * {
     box-sizing: border-box;
   }
@@ -6,9 +35,8 @@
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    background-color: #f5f5f5;
   }
-   
+  /* 
   h1 {
     margin: 0;
   }
@@ -22,7 +50,7 @@
     padding: 10px;
     background-color: white;
   }
-   
+
   .main-menu {
     display: flex;
     justify-content: space-between;
@@ -37,7 +65,8 @@
     color: #666;
     padding: 16px 10px 6px;
     white-space: nowrap;
-    overflow-x: scroll;
+
+
   }
    
   .category-navigation-link {
@@ -45,29 +74,14 @@
     color: inherit;
   }
    
-  .button {
-    min-width: 40px;
-    height: 40px;
-    padding: 8px;
-    border-radius: 8px;
-    border: 2px solid #ffa41b;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #ffa41b;
-    background-color: white;
-    cursor: pointer;
-  }
+
    
   .logo {
     border: none;
   }
    
   .button-primary {
-    background-color: #ffa41b;
+    background-color: #ecd469;
     color: white;
   }
    
@@ -89,7 +103,7 @@
     height: 40px;
     background-color: white;
     padding: 8px;
-    border: 2px solid #ffa41b;
+    border: 2px solid #ecd469;
     border-radius: 8px;
     font-size: 12px;
     font-family: inherit;
@@ -113,11 +127,12 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
+    margin-top: 10px;
   }
    
   .ad-card-container {
     border-radius: 8px;
-    border: 1px solid lightgray;
+    border: 2px solid lightgray;
     color: inherit;
     background-color: white;
   }
@@ -141,6 +156,36 @@
    
   .ad-card-title {
     font-weight: bold;
+  }
+
+  .ad-card-button-p {
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #ecd469;
+    font-weight: 600;
+  }
+
+  .ad-card-button {
+    height: 40px;
+    border: none;
+    width: 80%;
+    font-size: 20px;
+    color: #ecd469;
+    cursor: pointer;
+  }
+
+  .ad-card-button-p p {
+    height: 40px;
+    margin: 0;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ad-card-button:hover {
+    font-weight: 600;
   }
    
   .ad-details-image-container {
@@ -196,4 +241,4 @@
     height: 1px;
     background-color: lightgray;
     border: none;
-  }
+  }  */
