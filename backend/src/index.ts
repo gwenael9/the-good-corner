@@ -61,6 +61,32 @@ app.get("/ads", async (req: Request, res: Response) => {
   }
 });
 
+app.get("/ads/:id", async (req: Request, res: Response) => {
+
+  try {
+    const adId = parseInt(req.params.id, 10); // Récupérer l'ID de l'annonce depuis les paramètres de l'URL
+
+    // Rechercher l'annonce par ID avec des relations spécifiques
+    const ad = await Ad.createQueryBuilder("ad")
+      .leftJoinAndSelect("ad.category", "category")
+      .leftJoinAndSelect("ad.tags", "tags")
+      .where("ad.id = :id", { id: adId })
+      .getOne();
+
+    if (!ad) {
+      // Si l'annonce n'est pas trouvée, renvoyer une réponse 404 (Not Found)
+      return res.sendStatus(404);
+    }
+
+    // Envoyer l'annonce trouvée en réponse
+    res.send(ad);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500); // En cas d'erreur serveur, renvoyer une réponse 500 (Internal Server Error)
+  }
+
+});
+
 // tags
 app.get("/tags", async (req: Request, res: Response) => {
   try {
