@@ -35,28 +35,37 @@ export default function AdDetails() {
 
             {typeof ad === 'undefined' ? ( 'Chargement...' ) 
             : ( 
-                <section className="bg-gray-400 rounded-sm grid md:grid-cols-2 p-8 gap-2">
+                <div className="flex justify-center">
+                    <div className="bg-slate-300 rounded-sm grid md:grid-cols-2 p-8 md:gap-6">
 
-                    <img className="w-full rounded-md" src={ad.picture} alt={ad.title} />
+                        <div className="flex items-center">
+                            <img className="h-80 w-full rounded-md" src={ad.picture} alt={ad.title} />
+                        </div>
 
-                    
-                    <div className="">
                         
-                        <div className="grid grid-cols-2">
-                            <h2 className="font-bold">{ad.title}</h2>
-                            <p>{ad.price} €</p>
-                        </div>          
-                        <p>Par {ad.author}</p>
-                        <p>{ad.city}</p>
-                        <p>{ad.description} zebi</p>
-                        <button className="button" onClick={handleDeleteAd}>Supprimer</button>
+                        <div className="">
+                            
+                            <div className="flex justify-between mb-8">
+                                <h2 className="font-bold text-lg">{ad.title}</h2>
+                                <p className="text-lg font-semibold text-slate-500">{ad.price} €</p>
+                            </div>  
 
+                            <p>{ad.description}</p>
+
+                            <p className="text-xs">Cette annonce à été postée par <span className="font-bold">{ad.author}</span>.</p>
+
+                            <div className="flex justify-between mt-8" >
+                                <p>{ad.city}</p>
+
+                                <button className="button"><a href={`editAd/${adId}`}>Modifier</a></button>
+                                <button className="button" onClick={handleDeleteAd}>Supprimer</button>
+
+                            </div>
+                            
+                        </div>
                     </div>
-
-                    
-                    
-
-                </section>
+                </div>
+                
  
             )}
                                 

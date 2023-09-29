@@ -119,6 +119,19 @@ app.post("/ads", async (req: Request, res: Response) => {
   }
 });
 
+app.post("/categories", async (req: Request, res: Response) => {
+  try {
+    const newCat = Category.create(req.body);
+    const errors = await validate(newCat);
+    if (errors.length !== 0) return res.status(422).send({ errors });
+    const newCatWithId = await newCat.save();
+    res.send(newCatWithId);
+  } catch (err) {
+    console.log('zebiiiiiiiiiiiiiiiii', err);
+    res.sendStatus(500);
+  }
+});
+
 // tags
 app.post("/tags", async (req: Request, res: Response) => {
   try {

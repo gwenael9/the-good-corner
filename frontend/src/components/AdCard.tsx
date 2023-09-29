@@ -19,7 +19,7 @@ const [test, setTest] = useState(0);
     <>
       <div className=" bg-slate-300 rounded-md border">
         <Link className="flex-none w-full" href={link}>
-          <img className="w-full" src={picture} />
+          <img className="w-full h-80 object-cover" src={picture} />
           <div className="p-3 flex">
             <div className="flex-auto text-lg font-semibold text-slate-900">
               {title}
@@ -31,7 +31,7 @@ const [test, setTest] = useState(0);
         </Link>
 
         {typeof onAddPrice === "function" && (
-          <div className="flex justify-between	">
+          <div className="flex justify-between	p-4">
             <button
               className="button hover:bg-white"
               onClick={() => {

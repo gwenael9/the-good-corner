@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout"
-import { Ad } from "@/types";
+import { Ad, Category } from "@/types";
 import { useRouter } from "next/router"
 import axios from 'axios';
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ export default function Search() {
     const router = useRouter();
 
     const [ads, setAds] = useState<Ad[]>([]);
+    const [cats, setCats] = useState<Category[]>([]);
 
 
     useEffect(() => {
@@ -18,6 +19,13 @@ export default function Search() {
         .then(res => setAds(res.data))
         .catch(console.error)
     }, [router.query.title]);
+
+    useEffect(() => {
+        axios
+        .get<Category[]>(`http://localhost:4000/categories?name=${router.query.name || ''}`)
+        .then(res => setCats(res.data))
+        .catch(console.error)
+    }, [router.query.name]);
     
     return  (
         <Layout title="recherche - TGC">

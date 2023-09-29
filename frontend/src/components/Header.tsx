@@ -1,32 +1,29 @@
+import { Category } from "@/types";
+import axios from "axios";
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react";
 
 export default function Header() {
-  const categories = [
-    {name: "Ameublement"},
-    {name: "Électroménager"},
-    {name: "Photographie"},    
-    {name: "Informatique"},    
-    {name: "Téléphonie"},    
-    {name: "Vélos"},    
-    {name: "Véhicules"},    
-    {name: "Sport"},    
-    {name: "Habillement"},    
-    {name: "Bébé"},    
-    {name: "Outillage"},    
-    {name: "Services"},    
-    {name: "Vacances"}
-  ]
-
+  
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const [cats, setCats] = useState<Category[]>([]);
 
   useEffect(() => {
     if(typeof router.query.title === 'string') {
       setSearch(router.query.title)
     }
-  }, [router.query.title])
+  }, [router.query.title]);
+
+  // appel à nos catégories
+  useEffect(() => {
+    axios
+      .get<Category[]>("http://localhost:4000/categories")
+      .then((res) => setCats(res.data))
+      .catch(console.error);
+    }, []);
+
 
     return (
       <>
@@ -69,13 +66,17 @@ export default function Header() {
               <span className="hidden md:inline">Publier une annonce</span>
               </a>
           </div>
-          <nav className="flex text-xs font-bold py-4 pl-2.5 pr-1.5  justify-between">
-            {categories.map((cat) => (
+          <div className="flex">
+            <nav className="flex text-xs font-bold py-4 pl-2.5 pr-1.5 justify-around w-full">
+            {cats.map((cat) => (
               <a href="" className="category-navigation-link" key={cat.name}>
-                {cat.name}
+                {cat.name.toUpperCase()}
               </a>
             ))}
           </nav>
+            <Link href="/categories" className="border font-bold">+</Link>
+          </div>
+          
         </header>
       </>
     )
