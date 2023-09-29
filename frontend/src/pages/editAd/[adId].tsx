@@ -1,35 +1,23 @@
 import Layout from "@/components/Layout";
-import { Ad, Category } from "@/types";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { MapPinIcon } from "@heroicons/react/24/outline";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import Form from "@/components/Form";
 
 export default function EditAd() {
+
   const router = useRouter();
   const { adId } = router.query;
 
-  const [ad, setAd] = useState<Ad>();
+  const [ad, setAd] = useState<any>(null);
 
   useEffect(() => {
-    if (typeof ad === "undefined")
+    if (adId)
       axios
-        .get<Ad>(`http://localhost:4000/ads/${adId}`)
+        .get(`http://localhost:4000/ads/${adId}`)
         .then((res) => setAd(res.data))
         .catch(console.error);
   }, [adId]);
-
-  const [categories, setCategories] = useState<Category[]>([]);
-
-  useEffect(() => {
-    axios
-      .get<Category[]>("http://localhost:4000/categories")
-      .then((res) => setCategories(res.data))
-      .catch(console.error);
-  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,5 +32,20 @@ export default function EditAd() {
       })
       .catch(console.error);
   };
+
+  return (
+
+    <Layout title="Création d'une annonce">
+
+        <h2 className="flex justify-center font-bold text-3xl mb-8">Pour modifier votre annonce, c'est ici !</h2>
+        {ad && (
+            <div className="flex justify-center">
+                <Form onSubmit={handleSubmit} initialData={ad} />
+            </div>
+       
+      )}
+    </Layout>
+
+    )
 
 }

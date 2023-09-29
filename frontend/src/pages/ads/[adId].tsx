@@ -3,6 +3,7 @@ import { Ad } from "@/types";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import Link from "next/link";
 
 export default function AdDetails() {
     
@@ -57,7 +58,10 @@ export default function AdDetails() {
                             <div className="flex justify-between mt-8" >
                                 <p>{ad.city}</p>
 
-                                <button className="button"><a href={`editAd/${adId}`}>Modifier</a></button>
+                                <Link href={`/editAd/${ad.id}`}>
+                                <button className="button">Modifier</button>
+                                </Link>
+
                                 <button className="button" onClick={handleDeleteAd}>Supprimer</button>
 
                             </div>
