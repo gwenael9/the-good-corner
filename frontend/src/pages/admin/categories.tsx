@@ -24,7 +24,9 @@ export default function AdminCategories() {
   };
 
   return (
-    <AdminLayout title="gestion des categories - TGC">
+    <AdminLayout title="Gestion des categories - TGC">
+
+      {/* formulaire pour ajouter une catégorie */}
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -53,28 +55,31 @@ export default function AdminCategories() {
             required
           />
         </label>
-        <button className="btn">Enregistrer</button>
+        <button className="button">Enregistrer</button>
       </form>
 
       {categories?.length !== 0 && (
-        <table className="table mt-4">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Nom</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories?.map((c) => (
-              <AdminCategoryRow
-                key={c.id}
-                handleDeleteCategory={handleDeleteCategory}
-                category={c}
-              />
-            ))}
-          </tbody>
-        </table>
+        <div className="flex justify-center border">
+          <table className="">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {categories?.map((c) => (
+                <AdminCategoryRow
+                  key={c.id}
+                  handleDeleteCategory={handleDeleteCategory}
+                  category={c}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+        
       )}
     </AdminLayout>
   );

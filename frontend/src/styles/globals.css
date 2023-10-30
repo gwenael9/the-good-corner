@@ -17,7 +17,7 @@
   padding: 8px;
   border-radius: 8px;
   border: 2px solid;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   gap: 3px;

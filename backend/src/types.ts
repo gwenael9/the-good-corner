@@ -7,4 +7,4 @@ export type Ad = {
     picture: string;
     city: string;
     createdAt: string;
-}
+};

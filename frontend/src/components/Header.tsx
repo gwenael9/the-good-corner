@@ -28,7 +28,9 @@ export default function Header() {
     return (
       <>
         <header className="fixed top-0 inset-x-0 border-b-2 p-2.5 bg-white">
+
           <div className="flex justify-between items-center gap-2.5">
+
             <h1 className="m-0">
               <Link href="/" className="h-10 px-6 font-semibold rounded-md bg-black text-white deco-none border-none">
                 <span className="md:hidden">TGC</span>
@@ -64,17 +66,21 @@ export default function Header() {
             <a href="/newAd" className="button deco-none">
               <span className="md:hidden">Publier</span>
               <span className="hidden md:inline">Publier une annonce</span>
-              </a>
+            </a>
+
           </div>
+
           <div className="flex">
-            <nav className="flex text-xs font-bold py-4 pl-2.5 pr-1.5 justify-around w-full">
-            {cats.map((cat) => (
-              <a href="" className="category-navigation-link" key={cat.name}>
-                {cat.name.toUpperCase()}
-              </a>
-            ))}
-          </nav>
-            <Link href="/categories" className="border font-bold">+</Link>
+
+            <nav className="flex text-xs font-bold mt-4 pl-2.5 pr-1.5 justify-around w-full">
+              {cats.map((cat) => (
+                <a href="" className="category-navigation-link" key={cat.name}>
+                  {cat.name.toUpperCase()}
+                </a>
+              ))}
+            </nav>
+
+            <Link href="/admin" className="font-bold">Admin</Link>
           </div>
           
         </header>

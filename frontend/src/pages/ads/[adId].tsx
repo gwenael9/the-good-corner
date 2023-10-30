@@ -58,12 +58,15 @@ export default function AdDetails() {
                             <div className="flex justify-between mt-8" >
                                 <p>{ad.city}</p>
 
-                                <Link href={`/editAd/${ad.id}`}>
-                                <button className="button">Modifier</button>
-                                </Link>
+                                <div className="flex">
+                                    <Link href={`/editAd/${ad.id}`} className="mr-1">
+                                        <button className="button">Modifier</button>
+                                    </Link>
 
-                                <button className="button" onClick={handleDeleteAd}>Supprimer</button>
+                                    <button className="button" onClick={handleDeleteAd}>Supprimer</button>
 
+                                </div>
+                               
                             </div>
                             
                         </div>
@@ -76,6 +79,3 @@ export default function AdDetails() {
         </Layout>
     );
 }
-
-
-{/*  */}
