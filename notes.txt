@@ -18,3 +18,8 @@ npm install typeorm reflect-metadata
 ctrl + p , >opendatabase
 
 pq pas intégré Material.UI ou Tailwind CSS 
+
+à faire :
+
+revoir design
+recheche par categorie, qd on click sur la cat dans la nav
