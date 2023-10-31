@@ -35,7 +35,6 @@ export default function Search() {
                     <AdCard key={ad.title} ad={ad} link={`/ads/${ad.id}`}/>
                 ))}
             </section>
-            
         </Layout>
     )
 }

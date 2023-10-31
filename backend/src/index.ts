@@ -7,6 +7,12 @@ import { Category } from "./entities/category";
 import { Tag } from "./entities/tag";
 import { In, Like } from "typeorm";
 import cors from 'cors';
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { GraphQLError } from "graphql";
+import AdsResolver from "./resolvers/adsResolver";
+import TagsResolver from "./resolvers/tagsResolver";
+import { buildSchema } from "type-graphql";
 
 const app = express();
 const port = 4000;
@@ -202,3 +208,16 @@ app.listen(port, async () => {
   await db.initialize();
   console.log(`Example app listening on port ${port}`);  
 });
+
+
+// buildschema crée un schema GraphQL en utilisant les resolveurs  Ads.. et Tags.. le schema définit les types de données, les relations entre ces types et les points d'entrée
+buildSchema({
+  resolvers: [AdsResolver, TagsResolver],
+}).then((schema) => {
+  const server = new ApolloServer({ schema });
+  startStandaloneServer(server, {
+    listen: { port: 4001 },
+  }).then(({ url }) => console.log(`graphql server listening on ${url}`));
+});
+
+
