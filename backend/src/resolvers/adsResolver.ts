@@ -1,23 +1,85 @@
-import { Resolver, Query } from "type-graphql";
-import { Ad } from "../entities/ad";
+import { Resolver, Query, Arg, Int, Mutation } from "type-graphql";
+import { Ad, NewAdInput, UpdateAdInput } from "../entities/ad";
 import { GraphQLError } from "graphql";
+import { In, Like } from "typeorm";
+import { validate } from "class-validator";
 
 @Resolver(Ad)
 class AdsResolver {
+
+    // get
     @Query(() => [Ad])
-    async ads() {
-        return Ad.find({ relations: { category: true, tags: true } });
+    async ads(
+        @Arg("tagsId", { nullable: true }) tagIds?: string,
+        @Arg("categoryId", () => Int, { nullable: true }) categoryId?: number,
+        @Arg("title", { nullable: true }) title?: string
+    ) {
+        return Ad.find({ 
+            relations: { category: true, tags: true },
+            where: {
+                tags: {
+                    id: typeof tagIds === "string" && tagIds.length > 0 ? In(tagIds.split(",").map((t) => parseInt(t, 10))) : undefined,
+                },
+                title: title ? Like(`%${title}%`) : undefined,
+                category: {
+                    id: categoryId,
+                },
+            }, 
+        });
     }
 
+    // get l'annonce selon son id
     @Query(() => Ad)
-    async getAdById(_: any, args: { id: string }) {
+    async getAdById(@Arg("adId") id: number) {
         const ad = await Ad.findOne({
-          where: { id: parseInt(args.id, 10) }, 
-          relations: { category: true, tags: true },
+            where: { id }, 
+            relations: { category: true, tags: true },
         });
-  
         if (!ad) throw new GraphQLError("NOT_FOUND");
         return ad;
+    }
+
+    // create
+    @Mutation(() => Ad)
+    async createAd(@Arg("data", { validate: true }) data: NewAdInput) {
+        const newAd = new Ad();
+        Object.assign(newAd, data);
+        const errors = await validate(newAd);
+
+        if (errors.length !== 0) throw new GraphQLError("invalid data", { extensions: { errors } });
+        const { id } = await newAd.save();
+        
+        return Ad.findOne({
+            where: { id },
+            relations: { category: true, tags: true },
+        });
+    }
+
+    // modifier
+    @Mutation(() => Ad)
+    async updateAd(
+        @Arg("adId") id: number,
+        @Arg("data", { validate: true }) data: UpdateAdInput
+    ) {
+        const adToUpdate = await Ad.findOneBy({ id });
+        if (!adToUpdate) throw new GraphQLError("not found");
+
+        await Object.assign(adToUpdate, data);
+
+        await adToUpdate.save();
+        return Ad.findOne({
+        where: { id },
+        relations: { category: true, tags: true },
+        });
+    }
+
+    // supprimer
+    @Mutation(() => String)
+    async deleteAd(@Arg("adId") id: number) {
+        const ad = await Ad.findOne({ where: { id } });
+        if (!ad) throw new GraphQLError("not found");
+        await ad.remove();
+        return "deleted";
     }
 }
 
