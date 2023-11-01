@@ -218,5 +218,3 @@ buildSchema({
     listen: { port: 4001 },
   }).then(({ url }) => console.log(`graphql server listening on ${url}`));
 });
-
-

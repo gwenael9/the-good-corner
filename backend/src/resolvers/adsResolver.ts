@@ -55,7 +55,7 @@ class AdsResolver {
         });
     }
 
-    // modifier
+    // update
     @Mutation(() => Ad)
     async updateAd(
         @Arg("adId") id: number,
@@ -73,7 +73,7 @@ class AdsResolver {
         });
     }
 
-    // supprimer
+    // delete
     @Mutation(() => String)
     async deleteAd(@Arg("adId") id: number) {
         const ad = await Ad.findOne({ where: { id } });
